@@ -108,13 +108,17 @@ def get_information_from_links(links):
             soup = BeautifulSoup(response.text, 'html.parser')
 
             # Check if it's an Instagram profile page, all for ig tester
-            if 'instagram.com' in link:
-                name = soup.find('h1', {'class': 'rhpdm'})  # Replace with the actual class name
-                title = soup.find('span', {'class': 'rhpdm'})  # Replace with the actual class name
-                bio = soup.find('div', {'class': '-vDIg'})  # Replace with the actual class name
-            else:
+            if ('instagram.com' or 'linkedin.com') in link:
+                name = soup.find('h1', {'class': 'rhpdm'})  # class names
+                title = soup.find('span', {'class': 'rhpdm'})  # 
+                bio = soup.find('div', {'class': '-vDIg'})  # 
                 # what other info to take for diff sites
                 # tite, bio??, age, idk
+
+            else:
+                #### other sites w diff qualities 
+                pass
+
 
     if name and title:
         # Extract the text content from the HTML elements
@@ -122,18 +126,18 @@ def get_information_from_links(links):
         title = title.get_text() if title else ''
         bio = bio.get_text() if bio else ''
 
-            results.append({
-                'link': link,
-                'name': name.strip(),
-                'title': title.strip(),                    
-                'bio': bio.strip()
+        results.append({
+            'link': link,
+            'name': name.strip(),
+            'title': title.strip(),                    
+            'bio': bio.strip()
                 })
 
     return results
 
 def case_files(name):
     # Specify the path to your WebDriver executable (change this to match your WebDriver)
-    chrome_driver_path = 'C:/Macintosh HD/Users/sreeyasha/Desktop/Soteria/chromedriver.exe'
+    chrome_driver_path = '~/chromedriver.exe'
 
     # WebDriver (for Chrome in this example)
     driver = webdriver.Chrome(executable_path=chrome_driver_path)
@@ -156,7 +160,7 @@ def case_files(name):
         input_field = driver.find_element_by_name('search')  # Replace with the bar name
         input_field.send_keys(name)  # Replace with the query 
 
-        # driver.implicitly_wait(10)  # Wait for 10 seconds example, may need idk man
+        driver.implicitly_wait(10)  # Wait for 10 seconds example, may need idk man
 
         # example for page title 
         print("Page title:", driver.title)
