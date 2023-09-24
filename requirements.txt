@@ -1,0 +1,12 @@
+Dependencies:
+     pip install:
+         google-search
+         bs4
+         beautifulsoup
+         re
+         urllib.request
+         selenium
+         webdriver
+         requests
+
+     chrome driver 
