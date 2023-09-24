@@ -5,7 +5,6 @@ import bs4
 import re
 import urllib.request
 from googlesearch import search
-import requests
 
 import ssl
 
@@ -73,8 +72,6 @@ def get_sites(name):
         urls.append(j)
         print(j)
     
-    return urls
-    
     #Reads each link found and scrapes data.
     """
     for link in urls:
@@ -94,50 +91,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
-
-def get_information_from_links(links):
-    results = []
-
-    for link in links:
-        # HTTP GET request to the link
-        response = requests.get(link)
-
-        # Check if the request was successful (status code 200)
-        if response.status_code == 200:
-            # Parse the HTML content of the page
-            soup = BeautifulSoup(response.text, 'html.parser')
-
-            # Check if it's an Instagram profile page, all for ig tester
-            if ('instagram.com' or 'linkedin.com') in link:
-                name = soup.find('h1', {'class': 'rhpdm'})  # class names
-                title = soup.find('span', {'class': 'rhpdm'})  # 
-                bio = soup.find('div', {'class': '-vDIg'})  # 
-                # what other info to take for diff sites
-                # tite, bio??, age, idk
-
-            else:
-                #### other sites w diff qualities 
-                pass
-
-
-    if name and title:
-        # Extract the text content from the HTML elements
-        name = name.get_text() if name else ''
-        title = title.get_text() if title else ''
-        bio = bio.get_text() if bio else ''
-
-        results.append({
-            'link': link,
-            'name': name.strip(),
-            'title': title.strip(),                    
-            'bio': bio.strip()
-                })
-
-    return results
-
-def case_files(name):
+def case_files():
     # Specify the path to your WebDriver executable (change this to match your WebDriver)
-    chrome_driver_path = '~/chromedriver.exe'
+    chrome_driver_path = 'path/to/chromedriver.exe'
 
     # WebDriver (for Chrome in this example)
     driver = webdriver.Chrome(executable_path=chrome_driver_path)
@@ -158,17 +114,17 @@ def case_files(name):
         agree_button.click()
         # Find an input field (e.g., a search box) and interact with it
         input_field = driver.find_element_by_name('search')  # Replace with the bar name
-        input_field.send_keys(name)  # Replace with the query 
+        input_field.send_keys('your search query')  # Replace with the query 
 
-        driver.implicitly_wait(10)  # Wait for 10 seconds example, may need idk man
+        # driver.implicitly_wait(10)  # Wait for 10 seconds example, may need idk man
 
         # example for page title 
         print("Page title:", driver.title)
-        print("Results:", driver.result)
 
 
     except Exception as e:
         print("An error occurred:", str(e))
+
     # Close the browser
     driver.quit()
 
@@ -183,14 +139,5 @@ if __name__ == "__main__":
         name += info
 
 
-    links_to_scrape = get_sites(name)
+    get_sites(name)
     case_files()
-
-    # example for getting info from sites use 
-    information = get_information_from_links(links_to_scrape)
-    for data in information:
-        print(f"Link: {data['link']}")
-        print(f"Name: {data['name']}")
-        print(f"Title: {data['title']}")
-        print(f"Bio: {data['bio']}")
-        print()
