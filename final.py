@@ -1,5 +1,6 @@
 # Sreeyasha 
 # main code for Soteria 
+# idea is to export information from links 
 
 import googlesearch
 import bs4
