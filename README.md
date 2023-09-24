@@ -10,14 +10,14 @@ Simply enter the name of the person you wish to find information on, and Soteria
 
 
 Dependencies:
-    - pip install:
-        - google-search
-        - bs4
-        - beautifulsoup
-        - re
-        - urllib.request
-        - selenium
-        - webdriver
-        - requests
+     pip install:
+         google-search
+         bs4
+         beautifulsoup
+         re
+         urllib.request
+         selenium
+         webdriver
+         requests
 
-    - chrome driver 
+     chrome driver 
